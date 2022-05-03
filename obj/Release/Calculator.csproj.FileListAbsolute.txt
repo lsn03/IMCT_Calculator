@@ -1,0 +1,15 @@
+D:\Programming\IMKT\Calculator\bin\Release\Calculator.exe.config
+D:\Programming\IMKT\Calculator\bin\Release\Calculator.exe
+D:\Programming\IMKT\Calculator\bin\Release\Calculator.pdb
+D:\Programming\IMKT\Calculator\obj\Release\Calculator.csproj.AssemblyReference.cache
+D:\Programming\IMKT\Calculator\obj\Release\MainWindow.g.cs
+D:\Programming\IMKT\Calculator\obj\Release\App.g.cs
+D:\Programming\IMKT\Calculator\obj\Release\Calculator_MarkupCompile.cache
+D:\Programming\IMKT\Calculator\obj\Release\Calculator_MarkupCompile.lref
+D:\Programming\IMKT\Calculator\obj\Release\MainWindow.baml
+D:\Programming\IMKT\Calculator\obj\Release\Calculator.g.resources
+D:\Programming\IMKT\Calculator\obj\Release\Calculator.Properties.Resources.resources
+D:\Programming\IMKT\Calculator\obj\Release\Calculator.csproj.GenerateResource.cache
+D:\Programming\IMKT\Calculator\obj\Release\Calculator.csproj.CoreCompileInputs.cache
+D:\Programming\IMKT\Calculator\obj\Release\Calculator.exe
+D:\Programming\IMKT\Calculator\obj\Release\Calculator.pdb
