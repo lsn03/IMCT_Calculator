@@ -35,9 +35,14 @@ namespace Calculator
             }
         }
 
+        private string memory = "";
+        private  bool reverse = false;
+        private  bool sqrt = false;
+        private  bool percent = false;
         private void Button_Click( object sender, RoutedEventArgs e )
         {
             var str = (string)((Button)e.OriginalSource).Content;
+
             if ( str == "MC" )
             {
 
@@ -80,25 +85,22 @@ namespace Calculator
             }
             else if ( str == "1/x" )
             {
+                reverse = true;
+                Calculate(reverse);
+                reverse = false;
 
             }else if(str == "←" )
             {
-
+                if( fieldText.Text.Length != 0 )
+                {
+                    fieldText.Text = fieldText.Text.Remove( fieldText.Text.Length - 1 );
+                }
+                
             }
             else if ( str == "=" )
             {
-                string value;
-                try
-                {
-                    value = new DataTable().Compute( fieldText.Text, null ).ToString();
-                    fieldText.Text = value;
-                }
-
-                catch
-                {
-                    fieldText.Text = "Error.";
-                }
-
+                reverse = false;
+                Calculate(reverse);
             }
             else if(fieldText.Text.Contains("Error."))
             {
@@ -107,6 +109,27 @@ namespace Calculator
             else
             {
                 fieldText.Text += str;
+            }
+        }
+        private void Calculate( bool revers)
+        {
+            string value;
+            try
+            {
+                
+                
+                if (!revers)
+                    value = new DataTable().Compute( fieldText.Text,null ).ToString();
+                else 
+                    value = new DataTable().Compute( "1/ ("+ fieldText.Text+")", null ).ToString();
+                fieldText.Text = value;
+                
+            }
+
+            catch
+            {
+               
+                fieldText.Text = "Error.";
             }
         }
     }
