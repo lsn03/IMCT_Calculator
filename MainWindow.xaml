@@ -25,7 +25,23 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <TextBox Grid.Column="0"  Text="" Grid.ColumnSpan="5" Name="fieldText" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,4.8,4.6" Width="194" Height="30" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom" ></TextBox>
+        <TextBlock  Grid.Column="0"  
+                    Text="0" 
+                    Grid.ColumnSpan="5" 
+                    Name="fieldText" 
+                    TextAlignment="Right" 
+                    Margin="5,24,12.8,41.2"
+                    Grid.RowSpan="2"
+
+                    />
+        <TextBlock  Grid.Column="0"  
+                    Text="log" 
+                    Grid.ColumnSpan="5" 
+                    Name="logText" 
+                    TextAlignment="Right" 
+                    Margin="5,0,9.8,22.6"
+
+                    />
 
         <Button Grid.Column="0" Grid.Row="1">MC</Button>
         <Button Grid.Column="0" Grid.Row="2">←</Button>

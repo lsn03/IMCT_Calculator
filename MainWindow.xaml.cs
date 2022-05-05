@@ -21,6 +21,8 @@ namespace Calculator
     /// </summary>
     public partial class MainWindow : Window
     {
+        //Calculate calculate = new Calculate();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -39,9 +41,17 @@ namespace Calculator
         private  bool reverse = false;
         private  bool sqrt = false;
         private  bool percent = false;
+        private string firstString = "",secondString = "";
+        private string operand = "";
+        double first,second;
         private void Button_Click( object sender, RoutedEventArgs e )
         {
             var str = (string)((Button)e.OriginalSource).Content;
+
+            if ( fieldText.Text.Contains( "Error." ) )
+            {
+                fieldText.Text = "";
+            }
 
             if ( str == "MC" )
             {
@@ -51,7 +61,7 @@ namespace Calculator
             {
 
             }
-            else if ( str == "MS" )
+            else if ( str == "MS" ) // memory save
             {
 
             }
@@ -63,12 +73,20 @@ namespace Calculator
             {
 
             }
-            else if ( str == "CE" )
+            else if ( str == "CE" ) // убюирает ласт ввод (число)
             {
 
             }
-            else if ( str == "C" )
+            else if ( str == "C" ) // убирает все
             {
+
+            }
+            else if ( str == "←" )
+            {
+                if ( fieldText.Text.Length != 0 )
+                {
+                    fieldText.Text = fieldText.Text.Remove( fieldText.Text.Length - 1 );
+                }
 
             }
             else if ( str == "±" )
@@ -85,52 +103,110 @@ namespace Calculator
             }
             else if ( str == "1/x" )
             {
-                reverse = true;
-                Calculate(reverse);
-                reverse = false;
 
-            }else if(str == "←" )
+            }
+            else if ( str == "+" )
             {
-                if( fieldText.Text.Length != 0 )
-                {
-                    fieldText.Text = fieldText.Text.Remove( fieldText.Text.Length - 1 );
-                }
-                
+                operand = "+";
+                ParseFromInputToLog();
+            }
+            else if ( str == "-" )
+            {
+                operand = "-";
+                ParseFromInputToLog();
+            }
+            else if ( str == "*" )
+            {
+                operand = "*";
+                ParseFromInputToLog();
+            }
+            else if ( str == "/" )
+            {
+                operand = "/";
+                ParseFromInputToLog();
             }
             else if ( str == "=" )
             {
-                reverse = false;
-                Calculate(reverse);
-            }
-            else if(fieldText.Text.Contains("Error."))
-            {
-                fieldText.Text = "";
+                switch ( operand )
+                {
+                    case "+":
+                        fieldText.Text = CalculateFunction.Add( double.Parse( firstString ), double.Parse( secondString ) );
+                        break;
+                    case "-":
+                        fieldText.Text = CalculateFunction.Subtract( double.Parse( firstString ), double.Parse( secondString ) );
+                        break;
+                    case "*":
+                        fieldText.Text = CalculateFunction.Mul( double.Parse( firstString ), double.Parse( secondString ) );
+                        break;
+                    case "/":
+                        fieldText.Text = CalculateFunction.Divide( double.Parse( firstString ), double.Parse( secondString ) );
+                        break;
+                }
             }
             else
             {
+                
                 fieldText.Text += str;
-            }
-        }
-        private void Calculate( bool revers)
-        {
-            string value;
-            try
-            {
-                
-                
-                if (!revers)
-                    value = new DataTable().Compute( fieldText.Text,null ).ToString();
-                else 
-                    value = new DataTable().Compute( "1/ ("+ fieldText.Text+")", null ).ToString();
-                fieldText.Text = value;
-                
-            }
 
-            catch
-            {
-               
-                fieldText.Text = "Error.";
+                secondString = fieldText.Text;
+                
+                
+
+
             }
         }
+        private void ParseFromInputToLog()
+        {
+            firstString = fieldText.Text;
+            fieldText.Text = "";
+            logText.Text += firstString + operand;
+        }
+
+    }
+    class CalculateFunction
+    {
+        public static string Add(Int64 a,Int64 b)
+        {
+            return (a + b).ToString();
+        }
+        public static string Add( Int64 a, double b )
+        {
+            return ( a + b ).ToString();
+        }
+        public static string Add( double a, Int64 b )
+        {
+            return ( a + b ).ToString();
+        }
+        public static string Add( double a, double b )
+        {
+            return ( a + b ).ToString();
+        }
+        public static string Subtract( Int64 a, Int64 b )
+        {
+            return (a - b).ToString();
+        }
+        public static string Subtract( Int64 a, double b )
+        {
+            return ( a - b ).ToString();
+        }
+        public static string Subtract( double a, Int64 b )
+        {
+            return ( a - b ).ToString();
+        }
+        public static string Subtract( double a, double b )
+        {
+            return (a - b).ToString(); 
+        }
+        public static string Mul( double a, double b )
+        {
+            return ( a * b ).ToString();
+        }
+        public static string Divide( double a, double b )
+        {
+            return ( a / b ).ToString();
+        }
+
+
+
     }
 }
