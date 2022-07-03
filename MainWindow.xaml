@@ -26,20 +26,20 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock  Grid.Column="0"  
-                    Text="0" 
+                    Text="" 
                     Grid.ColumnSpan="5" 
                     Name="fieldText" 
                     TextAlignment="Right" 
-                    Margin="5,24,12.8,41.2"
+                    Margin="10,23,10,42"
                     Grid.RowSpan="2"
 
                     />
         <TextBlock  Grid.Column="0"  
-                    Text="log" 
+                    Text="" 
                     Grid.ColumnSpan="5" 
                     Name="logText" 
                     TextAlignment="Right" 
-                    Margin="5,0,9.8,22.6"
+                    Margin="10,5,9.8,19.6"
 
                     />
 
@@ -75,6 +75,7 @@
         <Button Grid.Column="4" Grid.Row="3">%</Button>
         <Button Grid.Column="4" Grid.Row="4">1/x</Button>
         <Button Grid.Column="4" Grid.Row="5" Grid.RowSpan="2" Content="="/>
+        
         <Grid.Resources>
 
             <Style TargetType="{x:Type Button}">

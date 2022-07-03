@@ -43,7 +43,7 @@ namespace Calculator
         private  bool percent = false;
         private string firstString = "",secondString = "";
         private string operand = "";
-        double first,second;
+        double first,second,result = 0;
         private void Button_Click( object sender, RoutedEventArgs e )
         {
             var str = (string)((Button)e.OriginalSource).Content;
@@ -55,17 +55,37 @@ namespace Calculator
 
             if ( str == "MC" )
             {
-
+                memory = "";
             }
             else if ( str == "MR" )
             {
-
+                if ( string.IsNullOrEmpty( fieldText.Text ) )
+                {
+                    fieldText.Text += memory;
+                }
+                else
+                {
+                    if ( memory != "" )
+                    {
+                        if (!string.IsNullOrEmpty( logText.Text ) )
+                        {
+                            char _operand = logText.Text[fieldText.Text.Length];
+                            if ( _operand == '+' || _operand == '-' || _operand == '*' || _operand == '/' )
+                            {
+                                logText.Text += memory;
+                                secondString = memory;
+                            }
+                        }
+                        
+                    }
+                    
+                }
             }
             else if ( str == "MS" ) // memory save
             {
-
+                memory = fieldText.Text;
             }
-            else if ( str == "M+" )
+            else if ( str == "M+" ) 
             {
 
             }
@@ -75,11 +95,14 @@ namespace Calculator
             }
             else if ( str == "CE" ) // убюирает ласт ввод (число)
             {
-
+                fieldText.Text = "";
+                result = 0;
             }
             else if ( str == "C" ) // убирает все
             {
-
+                logText.Text = "";
+                fieldText.Text = "";
+                result = 0;
             }
             else if ( str == "←" )
             {
@@ -91,7 +114,7 @@ namespace Calculator
             }
             else if ( str == "±" )
             {
-
+                fieldText.Text = (double.Parse( fieldText.Text ) * -1).ToString();
             }
             else if ( str == "√" )
             {
@@ -109,6 +132,8 @@ namespace Calculator
             {
                 operand = "+";
                 ParseFromInputToLog();
+                if(!string.IsNullOrWhiteSpace( secondString))
+                    fieldText.Text = CalculateFunction.Add( double.Parse( firstString ), double.Parse( secondString ) );
             }
             else if ( str == "-" )
             {
@@ -127,21 +152,24 @@ namespace Calculator
             }
             else if ( str == "=" )
             {
+                logText.Text = "";
                 switch ( operand )
                 {
+
                     case "+":
-                        fieldText.Text = CalculateFunction.Add( double.Parse( firstString ), double.Parse( secondString ) );
+                        fieldText.Text = CalculateFunction.Add( double.Parse( firstString ), double.Parse( fieldText.Text ) );
                         break;
                     case "-":
-                        fieldText.Text = CalculateFunction.Subtract( double.Parse( firstString ), double.Parse( secondString ) );
+                        fieldText.Text = CalculateFunction.Subtract( double.Parse( firstString ), double.Parse( fieldText.Text ) );
                         break;
                     case "*":
-                        fieldText.Text = CalculateFunction.Mul( double.Parse( firstString ), double.Parse( secondString ) );
+                        fieldText.Text = CalculateFunction.Mul( double.Parse( firstString ), double.Parse( fieldText.Text ) );
                         break;
                     case "/":
-                        fieldText.Text = CalculateFunction.Divide( double.Parse( firstString ), double.Parse( secondString ) );
+                        fieldText.Text = CalculateFunction.Divide( double.Parse( firstString ), double.Parse( fieldText.Text ) );
                         break;
                 }
+
             }
             else
             {
@@ -159,43 +187,21 @@ namespace Calculator
         {
             firstString = fieldText.Text;
             fieldText.Text = "";
+            secondString = "";
             logText.Text += firstString + operand;
         }
 
     }
     class CalculateFunction
     {
-        public static string Add(Int64 a,Int64 b)
-        {
-            return (a + b).ToString();
-        }
-        public static string Add( Int64 a, double b )
-        {
-            return ( a + b ).ToString();
-        }
-        public static string Add( double a, Int64 b )
-        {
-            return ( a + b ).ToString();
-        }
+
         public static string Add( double a, double b )
         {
             return ( a + b ).ToString();
         }
-        public static string Subtract( Int64 a, Int64 b )
-        {
-            return (a - b).ToString();
-        }
-        public static string Subtract( Int64 a, double b )
-        {
-            return ( a - b ).ToString();
-        }
-        public static string Subtract( double a, Int64 b )
-        {
-            return ( a - b ).ToString();
-        }
         public static string Subtract( double a, double b )
         {
-            return (a - b).ToString(); 
+            return ( a - b ).ToString();
         }
         public static string Mul( double a, double b )
         {
@@ -205,8 +211,14 @@ namespace Calculator
         {
             return ( a / b ).ToString();
         }
-
-
+        public static string Sqrt( double a )
+        {
+            return Math.Sqrt( a ).ToString();
+        }
+        public static string ReverseDivide( double a )
+        {
+            return ( 1 / a ).ToString();
+        }
 
     }
 }
